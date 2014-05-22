@@ -96,10 +96,11 @@ function RareTracker:OnRareTrackerOn()
 end
 
 function RareTracker:OnUnitCreated(unit)
-  -- Uncomment this to detect all elite mobs
+  local disposition = unit:GetDispositionTo(GameLib.GetPlayerUnit())
 
+  -- Uncomment this to detect all elite mobs
   -- if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
-  --    unit:GetDispositionTo(GameLib.GetPlayerUnit()) == Unit.CodeEnumDisposition.Hostile and 
+  --    (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and 
   --    (unit:GetDifficulty() >= 3 or unit:GetRank() >= 5) then
   --   local item = self.rareMobs[unit:GetName()]
   --   if not item then
@@ -111,7 +112,7 @@ function RareTracker:OnUnitCreated(unit)
   -- end
 
   if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
-     unit:GetDispositionTo(GameLib.GetPlayerUnit()) == Unit.CodeEnumDisposition.Hostile and
+     (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and
      find(trim(unit:GetName()), self.rareNames) then
     local item = self.rareMobs[unit:GetName()]
     if not item then
