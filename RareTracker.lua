@@ -42,7 +42,7 @@ function RareTracker:new(o)
   self.__index = self
 
 	o.rareMobs = {}
-  o.rareNames = {"Nomjin", "Frostshard", "Prodigy", "Beastmaster Xix", "Iiksy", "Shadowfall", "Leatherface", "Stonepile", "Stanch", "Galegut", "Gnawer", "Deadbough", "Barebones", "Wormwood the Wraithmaker", "Wormwood Acolyte", "Ashwin the Stormcrested", "Claymore XT-9", "AG5 Blitzbuster", "Nym Maiden of Mercy", "Asteria", "Acacia", "Atethys", "Mikolai the Malevolent", "The Shadow Queen", "XL-51 Goliath", "Queen Bizzelt", "Captain Fripeti", "Groundswell Guardsman", "RG3 Blitzbuster", "Brigadier Bellza", "Black Besieger", "Exterminator Cryvex", "Veshra the Eye of the Storm", "Slopper", "Gravek the Swale-Striker", "Veldrok the Vindicator", "Moreg the Mauler", "Zersa the Betrothed", "Kalifa", "Cromlech the Kilnborn", "Suul of the Silva", "Meldrid the Decrepit", "Blisterbane", "Squall", "Flamesurge", "Flamebinder Sorvel", "Rumble", "Doctor Rotthrall", "Kryne the Tidebreaker", "Quin Quickdraw", "Andara the Seer", "Crog the Smasher", "ER-7 Explorer", "AX-12 Defender", "Torgal the Devastator", "Scabclaw", "Gorax the Putrid", "Old Scrappy", "Dreadbone", "Guardian Xeltos", "Guardian Zelkix", "Augemnted Ragemaster", "Flintrock", "Gorignak", "Granitefist", "Dreich", "Beelzebug", "Whitefang", "Detritus", "Lifegrazer", "The Pink Pumera", "The Queen", "Blinky", "Drifter", "The Lobotomizer", "Abyss", "Deadpaws", "Alpha Guard One", "Alpha Guard Two", "Strainblade", "Vorgrim", "The Vultch", "Deathgrazer", "Purple Peep Eater", "The Ravagist", "Amorphomorph", "King Grimrock", "Scrabbles", "Sgt. Garog", "Excargo", "Gorganoth Prime", "The Floater", "Weapon 24", "Ghostfin", "Torrent", "Whirlwind", "Flamekin", "Dreadmorel", "Regulator 11", "Auxiliary Probe", "Sarod the Senseless", "Aeacus", "Silverhorn", "Voresk Venomgill", "The Terror of Bloodstone", "Zakan the Necroshaman", "Wrath of Niwha", "Felidax", "Terminus Rex", "Gavwyn the Verdant Defender", "Steel Jaw", "Arianna Wildgrass", "Arianna's Sentry", "Arianna's Assassin", "Subject: Rho", "The Endless Hunger", "Nakaz the Deadlord", "Hotshot Braz", "Bloodtail", "Blightbeak", "Deathpaw", "Grudder", "Quiggles", "King Cruelclaw", "Queen Kizzek", "Grovekeeper Fellia", "Razorclaw", "Chief Blackheart", "Rondo", "Rondo's Squad", "XT-9 Alpha", "Crystalback", "Rashanna the Soul Drinker", "The Embermaster", "Rotfang", "Spellmaster Verwyn", "Subject V - Tempest", "Subject J - Fiend", "Subject K - Brute", "KE-27 Sentinel", "KE-28 Energizer", "Subject Tau", "Grinder", "Bugwit", "Icefang", "Frostbite", "Grellis the Blight Queen", "Torvex the Crystal Titan", "K9 Destroyer", "Stormshell", "FR2 Blitzer", "Permafrost", "Drud the Demented", "Frosty the Snowtail", "Skorga the Frigid", "Warlord Nagvox"}
+  o.rareNames = {"Nomjin", "Frostshard", "Prodigy", "Beastmaster Xix", "Iiksy", "Shadowfall", "Leatherface", "Stonepile", "Stanch", "Galegut", "Gnawer", "Deadbough", "Barebones", "Wormwood the Wraithmaker", "Wormwood Acolyte", "Ashwin the Stormcrested", "Claymore XT-9", "AG5 Blitzbuster", "Nym Maiden of Mercy", "Asteria", "Acacia", "Atethys", "Mikolai the Malevolent", "The Shadow Queen", "XL-51 Goliath", "Queen Bizzelt", "Captain Fripeti", "Groundswell Guardsman", "RG3 Blitzbuster", "Brigadier Bellza", "Black Besieger", "Exterminator Cryvex", "Veshra the Eye of the Storm", "Slopper", "Gravek the Swale-Striker", "Veldrok the Vindicator", "Moreg the Mauler", "Zersa the Betrothed", "Kalifa", "Cromlech the Kilnborn", "Suul of the Silva", "Meldrid the Decrepit", "Blisterbane", "Squall", "Flamesurge", "Flamebinder Sorvel", "Rumble", "Doctor Rotthrall", "Kryne the Tidebreaker", "Quin Quickdraw", "Andara the Seer", "Crog the Smasher", "ER-7 Explorer", "AX-12 Defender", "Torgal the Devastator", "Scabclaw", "Gorax the Putrid", "Old Scrappy", "Dreadbone", "Guardian Xeltos", "Guardian Zelkix", "Augemnted Ragemaster", "Flintrock", "Gorignak", "Granitefist", "Dreich", "Beelzebug", "Whitefang", "Detritus", "Lifegrazer", "The Pink Pumera", "The Queen", "Blinky", "Drifter", "The Lobotomizer", "Abyss", "Deadpaws", "Alpha Guard One", "Alpha Guard Two", "Strainblade", "Vorgrim", "The Vultch", "Deathgrazer", "Purple Peep Eater", "The Ravagist", "Amorphomorph", "King Grimrock", "Scrabbles", "Sgt. Garog", "Excargo", "Gorganoth Prime", "The Floater", "Weapon 24", "Ghostfin", "Torrent", "Whirlwind", "Flamekin", "Dreadmorel", "Regulator 11", "Auxiliary Probe", "Sarod the Senseless", "Aeacus", "Silverhorn", "Voresk Venomgill", "The Terror of Bloodstone", "Zakan the Necroshaman", "Wrath of Niwha", "Felidax", "Terminus Rex", "Gavwyn the Verdant Defender", "Steel Jaw", "Arianna Wildgrass", "Arianna's Sentry", "Arianna's Assassin", "Subject: Rho", "The Endless Hunger", "Nakaz the Deadlord", "Hotshot Braz", "Bloodtail", "Blightbeak", "Deathpaw", "Grudder", "Quiggles", "King Cruelclaw", "Queen Kizzek", "Grovekeeper Fellia", "Razorclaw", "Chief Blackheart", "Rondo", "Rondo's Squad", "XT-9 Alpha", "Crystalback", "Rashanna the Soul Drinker", "The Embermaster", "Rotfang", "Spellmaster Verwyn", "Subject V - Tempest", "Subject J - Fiend", "Subject K - Brute", "KE-27 Sentinel", "KE-28 Energizer", "Subject Tau", "Grinder", "Bugwit", "Icefang", "Frostbite", "Grellis the Blight Queen", "Torvex the Crystal Titan", "K9 Destroyer", "Stormshell", "FR2 Blitzer", "Permafrost", "Drud the Demented", "Frosty the Snowtail", "Skorga the Frigid", "Warlord Nagvox", "Frozenclaw", "Shellshock", "Slopper", "AX-12 Defender"}
 	o.wndSelectedListItem = nil -- keep track of which list item is currently selected
 
   return o
@@ -99,6 +99,7 @@ function RareTracker:OnUnitCreated(unit)
   local disposition = unit:GetDispositionTo(GameLib.GetPlayerUnit())
 
   -- Uncomment this to detect all elite mobs
+
   -- if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
   --    (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and 
   --    (unit:GetDifficulty() >= 3 or unit:GetRank() >= 5) then
@@ -108,6 +109,9 @@ function RareTracker:OnUnitCreated(unit)
   --     self:AddItem(unit)
   --     self.wndMain:Invoke()
   --     Print("Mob Found: " .. unit:GetName())
+  --   elseif item.disabled == true then
+  --     -- The mob was destroyed but has been found again
+  --     self:EnableItem(item, unit)      
   --   end
   -- end
 
@@ -121,7 +125,7 @@ function RareTracker:OnUnitCreated(unit)
       Sound.Play(Sound.PlayUIExplorerScavengerHuntAdvanced)
       self:AddItem(unit)
       self.wndMain:Invoke()
-    elseif item.disabled == true then
+    elseif item.disabled then
       -- The mob was destroyed but has been found again
       self:EnableItem(item, unit)
     end
@@ -138,13 +142,8 @@ end
 -----------------------------------------------------------------------------------------------
 -- RareTrackerForm Functions
 -----------------------------------------------------------------------------------------------
--- when the OK button is clicked
-function RareTracker:OnOK()
-	self.wndMain:Close() -- hide the window
-end
-
 -- when the Cancel button is clicked
-function RareTracker:OnCancel()
+function RareTracker:OnClose()
 	self.wndMain:Close() -- hide the window
 end
 
@@ -160,44 +159,47 @@ function RareTracker:ClearList()
 	self.wndSelectedListItem = nil
 end
 
-function RareTracker:AddItem(item)
-  -- load the window item for the list item
+function RareTracker:AddItem(unit)
+  -- Make a new list item window
   local wnd = Apollo.LoadForm(self.xmlDoc, "ListItem", self.wndItemList, self)
-  -- keep track of the window item created
-  self.rareMobs[item:GetName()] = {}
 
-  local i = self.rareMobs[item:GetName()]
-  i.unit = item
-  i.wnd = wnd
+  local name = unit:GetName()
+  local position = unit:GetPosition()
 
-  -- give it a piece of data to refer to 
+  self.rareMobs[name] = {
+    wnd = wnd,
+    position = position,
+    name = name
+  }
+
+  local item = self.rareMobs[name]
+
   local wndItemText = wnd:FindChild("Text")
 
-  if wndItemText then -- make sure the text wnd exist
-    local target = item:GetPosition()
-    local posString = string.format("(%d, %d, %d)", math.floor(target.x, 0.5), math.floor(target.y, 0.5), math.floor(target.z, 0.5))
-    wndItemText:SetText(item:GetName() .. " " .. posString) 
-    wndItemText:SetTextColor(kcrNormalText)
+  if wndItemText then
+    -- local posString = string.format("(%d, %d, %d)", math.floor(position.x, 0.5), math.floor(position.y, 0.5), math.floor(position.z, 0.5))
+    -- wndItemText:SetText(unit:GetName() .. " " .. posString) 
+    wndItemText:SetText(name) 
   end
 
-  wnd:SetData(item)
   self.wndItemList:ArrangeChildrenVert()
+  self:EnableItem(item, unit)
 end
 
 
 function RareTracker:EnableItem(item, unit)
-  local wnd = item.wnd
   item.unit = unit
   item.disabled = false
-  wnd:SetData(unit)
-  wnd:FindChild("Text"):SetTextColor(kcrNormalText)
+
+  item.wnd:SetData(item)
+  item.wnd:FindChild("Text"):SetTextColor(kcrNormalText)
 end
 
 function RareTracker:DisableItem(item)
   local wnd = item.wnd
   item.unit = nil
   item.disabled = true
-  wnd:SetData(nil)
+  wnd:SetData(item)
   if wnd == self.wndSelectedListItem then
     self.wndSelectedListItem = nil
   end
@@ -209,7 +211,7 @@ function RareTracker:OnListItemSelected(wndHandler, wndControl)
     return
   end
 
-  local unit = wndControl:GetData()
+  local unit = wndControl:GetData().unit
 
   -- If GetData() is nil then don't allow selection
   if unit ~= nil then
