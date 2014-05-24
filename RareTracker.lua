@@ -79,7 +79,7 @@ function RareTracker:OnDocLoaded()
 		  Apollo.AddAddonErrorText(self, "Could not load the main window for some reason.")
 		  return
 	  end
-		
+
   	self.itemListWindow = self.mainWindow:FindChild("ItemList")
     self.mainWindow:Show(false, true)
 
@@ -87,6 +87,7 @@ function RareTracker:OnDocLoaded()
     Apollo.RegisterSlashCommand("rt", "OnRareTrackerOn", self)
     Apollo.RegisterEventHandler("UnitCreated", "OnUnitCreated", self)
     Apollo.RegisterEventHandler("UnitDestroyed", "OnUnitDestroyed", self)
+    Apollo.RegisterEventHandler("WindowManagementReady", "OnWindowManagementReady", self)
 
     self.timer = ApolloTimer.Create(1/60, true, "OnTimer", self)
     self.rotationTimer = ApolloTimer.Create(1/5, true, "OnTimer", self)
@@ -119,6 +120,8 @@ function RareTracker:OnUnitCreated(unit)
   --     self:EnableUnit(item, unit)      
   --   end
   -- end
+
+  -- Comment this block to disable checking against the rare list
 
   if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
      (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and
@@ -182,6 +185,10 @@ function RareTracker:GetDistance(target)
   else
     return 0
   end
+end
+
+function RareTracker:OnWindowManagementReady()
+  Event_FireGenericEvent("WindowManagementAdd", {wnd = self.mainWindow, strName = "RareTracker"})
 end
 
 -----------------------------------------------------------------------------------------------
