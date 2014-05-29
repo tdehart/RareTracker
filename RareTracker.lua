@@ -6,7 +6,7 @@
 require "Window"
  
 -----------------------------------------------------------------------------------------------
--- RareTracker Module Definition
+-- Module Definition
 -----------------------------------------------------------------------------------------------
 local RareTracker = {} 
  
@@ -45,14 +45,14 @@ function RareTracker:new(o)
 
 	o.rareMobs = {}
   o.rareNames = {"Nomjin", "Frostshard", "Prodigy", "Beastmaster Xix", "Iiksy", "Shadowfall", "Leatherface", "Stonepile", "Stanch", "Galegut", "Gnawer", "Deadbough", "Barebones", "Wormwood the Wraithmaker", "Wormwood Acolyte", "Ashwin the Stormcrested", "Claymore XT-9", "AG5 Blitzbuster", "Nym Maiden of Mercy", "Asteria", "Acacia", "Atethys", "Mikolai the Malevolent", "The Shadow Queen", "XL-51 Goliath", "Queen Bizzelt", "Captain Fripeti", "Groundswell Guardsman", "RG3 Blitzbuster", "Brigadier Bellza", "Black Besieger", "Exterminator Cryvex", "Veshra the Eye of the Storm", "Slopper", "Gravek the Swale-Striker", "Veldrok the Vindicator", "Moreg the Mauler", "Zersa the Betrothed", "Kalifa", "Cromlech the Kilnborn", "Suul of the Silva", "Meldrid the Decrepit", "Blisterbane", "Squall", "Flamesurge", "Flamebinder Sorvel", "Rumble", "Doctor Rotthrall", "Kryne the Tidebreaker", "Quin Quickdraw", "Andara the Seer", "Crog the Smasher", "ER-7 Explorer", "AX-12 Defender", "Torgal the Devastator", "Scabclaw", "Gorax the Putrid", "Old Scrappy", "Dreadbone", "Guardian Xeltos", "Guardian Zelkix", "Augemnted Ragemaster", "Flintrock", "Gorignak", "Granitefist", "Dreich", "Beelzebug", "Whitefang", "Detritus", "Lifegrazer", "The Pink Pumera", "The Queen", "Blinky", "Drifter", "The Lobotomizer", "Abyss", "Deadpaws", "Alpha Guard One", "Alpha Guard Two", "Strainblade", "Vorgrim", "The Vultch", "Deathgrazer", "Purple Peep Eater", "The Ravagist", "Amorphomorph", "King Grimrock", "Scrabbles", "Sgt. Garog", "Excargo", "Gorganoth Prime", "The Floater", "Weapon 24", "Ghostfin", "Torrent", "Whirlwind", "Flamekin", "Dreadmorel", "Regulator 11", "Auxiliary Probe", "Sarod the Senseless", "Aeacus", "Silverhorn", "Voresk Venomgill", "The Terror of Bloodstone", "Zakan the Necroshaman", "Wrath of Niwha", "Felidax", "Terminus Rex", "Gavwyn the Verdant Defender", "Steel Jaw", "Arianna Wildgrass", "Arianna's Sentry", "Arianna's Assassin", "Subject: Rho", "The Endless Hunger", "Nakaz the Deadlord", "Hotshot Braz", "Bloodtail", "Blightbeak", "Deathpaw", "Grudder", "Quiggles", "King Cruelclaw", "Queen Kizzek", "Grovekeeper Fellia", "Razorclaw", "Chief Blackheart", "Rondo", "Rondo's Squad", "XT-9 Alpha", "Crystalback", "Rashanna the Soul Drinker", "The Embermaster", "Rotfang", "Spellmaster Verwyn", "Subject V - Tempest", "Subject J - Fiend", "Subject K - Brute", "KE-27 Sentinel", "KE-28 Energizer", "Subject Tau", "Grinder", "Bugwit", "Icefang", "Frostbite", "Grellis the Blight Queen", "Torvex the Crystal Titan", "K9 Destroyer", "Stormshell", "FR2 Blitzer", "Permafrost", "Drud the Demented", "Frosty the Snowtail", "Skorga the Frigid", "Warlord Nagvox", "Frozenclaw", "Shellshock", "Slopper", "AX-12 Defender"}
-	o.selectedListItemWindow = nil -- keep track of which list item is currently selected
+	o.selectedListItemWindow = nil
 
   return o
 end
 
 function RareTracker:Init()
-	local bHasConfigureFunction = false
-	local strConfigureButtonText = ""
+	local bHasConfigureFunction = true
+	local strConfigureButtonText = "RareTracker"
 	local tDependencies = {
 	}
     
@@ -60,17 +60,11 @@ function RareTracker:Init()
 end
  
 
------------------------------------------------------------------------------------------------
--- RareTracker OnLoad
------------------------------------------------------------------------------------------------
 function RareTracker:OnLoad()
 	self.xmlDoc = XmlDoc.CreateFromFile("RareTracker.xml")
 	self.xmlDoc:RegisterCallback("OnDocLoaded", self)
 end
 
------------------------------------------------------------------------------------------------
--- RareTracker OnDocLoaded
------------------------------------------------------------------------------------------------
 function RareTracker:OnDocLoaded()
 	if self.xmlDoc ~= nil and self.xmlDoc:IsLoaded() then
     self.mainWindow = Apollo.LoadForm(self.xmlDoc, "RareTrackerForm", nil, self)
@@ -95,11 +89,58 @@ function RareTracker:OnDocLoaded()
 end
 
 -----------------------------------------------------------------------------------------------
--- RareTracker Functions
+-- Functions
 -----------------------------------------------------------------------------------------------
 function RareTracker:OnRareTrackerOn()
 	self.mainWindow:Invoke()
 end
+
+-- Triggered by Options side panel button
+function RareTracker:OnConfigure()
+  if self.configWindow ~= nil then
+    self.configWindow:Destroy()
+  end
+
+  self.configWindow = Apollo.LoadForm(self.xmlDoc, "ConfigForm", nil, self)
+
+  self.configWindow:FindChild("BroadcastContainer:RadioButton"):SetCheck(self.broadcastToParty)
+  self.configWindow:FindChild("MinLevelContainer:DaysContainer:minLevelInput"):SetText(self.minLevel)
+end
+
+function RareTracker:OnSave(saveLevel)
+  if saveLevel ~= GameLib.CodeEnumAddonSaveLevel.Character then
+    return nil
+  end
+
+  local savedData = {}
+
+  if (type(self.minLevel) == 'number') then
+    savedData.minLevel = math.floor(self.minLevel)
+  end
+
+  savedData.broadcastToParty = self.broadcastToParty
+
+  return savedData
+end
+
+function RareTracker:OnRestore(saveLevel, savedData)
+  if savedData ~= nil then
+    if (savedData.minLevel) then
+      self.minLevel = savedData.minLevel
+    else
+      --default value
+      self.minLevel = 1
+    end
+
+    if (savedData.broadcastToParty == nil) then
+      --default value
+      self.broadcastToParty = true
+    else
+      self.broadcastToParty = savedData.broadcastToParty
+    end
+  end
+end
+
 
 function RareTracker:OnUnitCreated(unit)
   local disposition = unit:GetDispositionTo(GameLib.GetPlayerUnit())
@@ -117,13 +158,14 @@ function RareTracker:OnUnitCreated(unit)
   --     Print("Mob Found: " .. unit:GetName())
   --   elseif item.inactive == true then
   --     -- The mob was destroyed but has been found again
-  --     self:EnableUnit(item, unit)      
+  --     self:ActivateUnit(item, unit)      
   --   end
   -- end
 
   -- Comment this block to disable checking against the rare list
 
-  if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
+  if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and 
+     (unit:GetLevel() ~= nil and unit:GetLevel() >= self.minLevel) and
      (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and
      find(trim(unit:GetName()), self.rareNames) then
     local item = self.rareMobs[unit:GetName()]
@@ -131,10 +173,20 @@ function RareTracker:OnUnitCreated(unit)
       -- Event_FireGenericEvent("SendVarToRover", unit:GetName(), unit)
       Sound.Play(Sound.PlayUIExplorerScavengerHuntAdvanced)
       self:AddItem(unit)
+
+      if self.broadcastToParty and GroupLib.InGroup() then
+        -- no quick way to party chat, need to find the channel first
+        for _,channel in pairs(ChatSystemLib.GetChannels()) do
+          if channel:GetType() == ChatSystemLib.ChatChannel_Party then
+            channel:Send("Rare detected: " .. unit:GetName())
+          end
+        end
+      end
+      
       self.mainWindow:Invoke()
     elseif item.inactive then
       -- The mob was destroyed but has been found again
-      self:EnableUnit(item, unit)
+      self:ActivateUnit(item, unit)
     end
   end
 end
@@ -142,7 +194,7 @@ end
 function RareTracker:OnUnitDestroyed(unit)
   local unit = self.rareMobs[unit:GetName()]
   if unit ~= nil then
-    self:DisableUnit(unit)
+    self:DeactivateUnit(unit)
   end
 end
 
@@ -163,6 +215,34 @@ function RareTracker:OnTimer()
     
   end
 end
+
+function RareTracker:OnBroadcastCheck(wndHandler, wndControl)
+  self.broadcastToParty = true
+  Event_FireGenericEvent("SendVarToRover", "self.broadcast", self.broadcastToParty)
+end
+
+function RareTracker:OnBroadcastUncheck(wndHandler, wndControl)
+  self.broadcastToParty = false
+  Event_FireGenericEvent("SendVarToRover", "self.broadcast", self.broadcastToParty)
+end
+
+function RareTracker:OnMinLevelChange(wndHandler, wndControl, strText)
+  local minLevel = tonumber(strText)
+  if minLevel ~= nil then
+    self.minLevel = math.floor(minLevel)
+  else
+    self.minLevel = 1
+  end
+end
+
+function RareTracker:OnClose()
+  self.mainWindow:Close()
+end
+
+function RareTracker:OnOptionsClose()
+  self.configWindow:Close()
+end
+
 
 -- credit to Caedo for this function, taken from his TrackMaster addon
 function RareTracker:GetDistance(target)
@@ -189,13 +269,6 @@ end
 
 function RareTracker:OnWindowManagementReady()
   Event_FireGenericEvent("WindowManagementAdd", {wnd = self.mainWindow, strName = "RareTracker"})
-end
-
------------------------------------------------------------------------------------------------
--- RareTrackerForm Functions
------------------------------------------------------------------------------------------------
-function RareTracker:OnClose()
-	self.mainWindow:Close()
 end
 
 function RareTracker:ClearList()
@@ -227,11 +300,11 @@ function RareTracker:AddItem(unit)
   end
 
   self.itemListWindow:ArrangeChildrenVert()
-  self:EnableUnit(self.rareMobs[name], unit)
+  self:ActivateUnit(self.rareMobs[name], unit)
 end
 
 
-function RareTracker:EnableUnit(item, unit)
+function RareTracker:ActivateUnit(item, unit)
   local wnd = item.wnd
 
   item.unit = unit
@@ -243,7 +316,7 @@ function RareTracker:EnableUnit(item, unit)
   wnd:SetData(item)
 end
 
-function RareTracker:DisableUnit(item)
+function RareTracker:DeactivateUnit(item)
   local wnd = item.wnd
 
   item.unit = nil
