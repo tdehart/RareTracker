@@ -109,6 +109,7 @@ function RareTracker:OnDocLoaded()
     self.rotationTimer = ApolloTimer.Create(1/5, true, "OnTimer", self)
 
     self:InitConfigOptions()
+    self:InitTrackMaster()
 	end
 end
 
@@ -139,7 +140,39 @@ function RareTracker:InitConfigOptions()
 
   if self.rareNames == nil then
     self.rareNames = self.defaultRareNames
-  end  
+  end
+end
+
+function RareTracker:InitTrackMaster()
+  self.trackMaster = Apollo.GetAddon("TrackMaster")
+
+  if self.trackMaster ~= nil then
+    if self.trackMasterLine == nil then
+      self.trackMasterLine = 1
+    end
+
+    if self.trackMasterEnabled == nil then
+      self.trackMasterEnabled = true
+    end
+
+    self.trackMaster:AddToConfigMenu(self.trackMaster.Type.Track, "   RareTracker", {
+      CanFire = false,
+      CanEnable = true,
+      IsChecked = self.trackMasterEnabled,
+      OnEnableChanged = function(isEnabled)
+        self.trackMasterEnabled = isEnabled
+      end,
+      LineNo = self.trackMasterLine,
+      OnLineChanged = function(lineNo)
+        self.trackMaster:SetTarget(nil, -1, self.trackMasterLine)
+        if self.selectedRareWindow ~= nil then
+          self.selectedRareWindow:FindChild("Name"):SetTextColor(normalTextColor)    
+          self.selectedRareWindow = nil
+        end
+        self.trackMasterLine = lineNo
+      end
+    })    
+  end
 end
 
 -----------------------------------------------------------------------------------------------
@@ -165,6 +198,8 @@ function RareTracker:OnSave(saveLevel)
   savedData.showIndicator = self.showIndicator
   savedData.rareNames = self.rareNames
   savedData.customNames = self.customNames
+  savedData.trackMasterLine = self.trackMasterLine
+  savedData.trackMasterEnabled = self.trackMasterEnabled
 
   return savedData
 end
@@ -197,6 +232,14 @@ function RareTracker:OnRestore(saveLevel, savedData)
   if (savedData.customNames ~= nil) then
     self.customNames = savedData.customNames
   end
+
+  if (savedData.trackMasterLine ~= nil) then
+    self.trackMasterLine = savedData.trackMasterLine
+  end
+
+  if (savedData.trackMasterEnabled ~= nil) then
+    self.trackMasterEnabled = savedData.trackMasterEnabled
+  end  
 end
 
 function RareTracker:OnWindowManagementReady()
@@ -322,8 +365,6 @@ function RareTracker:AddTrackedRare(unit)
 end
 
 function RareTracker:RemoveTrackedRare(windowControl)
-  local trackMaster = Apollo.GetAddon("TrackMaster")
-
   if windowControl == self.selectedRareWindow then
     self.selectedRareWindow = nil
   end
@@ -331,8 +372,8 @@ function RareTracker:RemoveTrackedRare(windowControl)
   self.rareMobs[windowControl:GetData().name] = nil
   windowControl:Destroy()
 
-  if trackMaster ~= nil then
-    trackMaster:SetTarget(nil, -1)
+  if self.trackMaster ~= nil then
+    self.trackMaster:SetTarget(nil, -1, self.trackMasterLine)
   end
     
   self.trackedRaresWindow:ArrangeChildrenVert()
@@ -373,9 +414,7 @@ function RareTracker:OnTrackedRareClick(windowHandler, windowControl, mouseButto
   end
 
   if mouseButton == GameLib.CodeEnumInputMouse.Left then
-    local trackMaster = Apollo.GetAddon("TrackMaster")
-
-    if trackMaster ~= nil then
+    if self.trackMaster ~= nil and self.trackMasterEnabled then
       -- change the old item's text color back to normal color
       local itemText
       if self.selectedRareWindow ~= nil then
@@ -404,8 +443,8 @@ function RareTracker:OnTrackedRareClick(windowHandler, windowControl, mouseButto
       trackObj = Vector3.New(pos.x, pos.y, pos.z)
     end
 
-    if trackMaster ~= nil then
-      trackMaster:SetTarget(trackObj, -1)
+    if self.trackMaster ~= nil and self.trackMasterEnabled then
+      self.trackMaster:SetTarget(trackObj, -1, self.trackMasterLine)
     end
   elseif mouseButton == GameLib.CodeEnumInputMouse.Right then
     self:RemoveTrackedRare(windowControl)
