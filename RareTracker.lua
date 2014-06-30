@@ -52,13 +52,17 @@ function RareTracker:new(o)
   setmetatable(o, self)
   self.__index = self
 
+  o.majorVersion = 1
+  o.minorVersion = 5
+  o.newRares = true
+
 	o.rareMobs = {}
 
   local strCancelLocale = Apollo.GetString(1);
     if strCancelLocale == "Cancel" then
-      o.defaultRareNames = {"Nomjin", "Frostshard", "Prodigy", "Beastmaster Xix", "Iiksy", "Shadowfall", "Leatherface", "Stonepile", "Stanch", "Galegut", "Gnawer", "Deadbough", "Barebones", "Wormwood the Wraithmaker", "Wormwood Acolyte", "Ashwin the Stormcrested", "Claymore XT-9", "AG5 Blitzbuster", "Nym Maiden of Mercy", "Asteria", "Acacia", "Atethys", "Mikolai the Malevolent", "The Shadow Queen", "XL-51 Goliath", "Queen Bizzelt", "Captain Fripeti", "Groundswell Guardsman", "RG3 Blitzbuster", "Brigadier Bellza", "Black Besieger", "Exterminator Cryvex", "Veshra the Eye of the Storm", "Slopper", "Gravek the Swale-Striker", "Veldrok the Vindicator", "Moreg the Mauler", "Zersa the Betrothed", "Kalifa", "Cromlech the Kilnborn", "Suul of the Silva", "Meldrid the Decrepit", "Blisterbane", "Squall", "Flamesurge", "Flamebinder Sorvel", "Rumble", "Doctor Rotthrall", "Kryne the Tidebreaker", "Quin Quickdraw", "Andara the Seer", "Crog the Smasher", "ER-7 Explorer", "AX-12 Defender", "Torgal the Devastator", "Scabclaw", "Gorax the Putrid", "Old Scrappy", "Dreadbone", "Guardian Xeltos", "Guardian Zelkix", "Augmented Ragemaster", "Flintrock", "Gorignak", "Granitefist", "Dreich", "Beelzebug", "Whitefang", "Detritus", "Lifegrazer", "The Pink Pumera", "The Queen", "Blinky", "Drifter", "The Lobotomizer", "Abyss", "Deadpaws", "Alpha Guard One", "Alpha Guard Two", "Strainblade", "Vorgrim", "The Vultch", "Deathgrazer", "Purple Peep Eater", "The Ravagist", "Amorphomorph", "King Grimrock", "Scrabbles", "Sgt. Garog", "Excargo", "Gorganoth Prime", "The Floater", "Weapon 24", "Ghostfin", "Torrent", "Whirlwind", "Dreadmorel", "Regulator 11", "Auxiliary Probe", "Sarod the Senseless", "Aeacus", "Silverhorn", "Voresk Venomgill", "The Terror of Bloodstone", "Zakan the Necroshaman", "Wrath of Niwha", "Felidax", "Terminus Rex", "Gavwyn the Verdant Defender", "Steel Jaw", "Arianna Wildgrass", "Arianna's Sentry", "Arianna's Assassin", "Subject: Rho", "The Endless Hunger", "Flamekin", "Nakaz the Deadlord", "Hotshot Braz", "Bloodtail", "Blightbeak", "Deathpaw", "Grudder", "Quiggles", "King Cruelclaw", "Queen Kizzek", "Grovekeeper Fellia", "Razorclaw", "Chief Blackheart", "Rondo", "Rondo's Squad", "XT-9 Alpha", "Crystalback", "Rashanna the Soul Drinker", "The Embermaster", "Rotfang", "Spellmaster Verwyn", "Subject V - Tempest", "Subject J - Fiend", "Subject K - Brute", "KE-27 Sentinel", "KE-28 Energizer", "Subject Tau", "Grinder", "Bugwit", "Icefang", "Frostbite", "Grellis the Blight Queen", "Torvex the Crystal Titan", "K9 Destroyer", "Stormshell", "FR2 Blitzer", "Permafrost", "Drud the Demented", "Frosty the Snowtail", "Skorga the Frigid", "Warlord Nagvox", "Shellshock", "AX-12 Defender", "Blubbergut", "Frozenclaw", "Stonegut", "Savageclaw", "Grug the Executioner", "Blightfang", "Basher Grogek", "Flame-Binder Trovin", "Queen Tizzet", "Dominator"}
+      o.defaultRareNames = {"Nomjin", "Frostshard", "Prodigy", "Beastmaster Xix", "Iiksy", "Shadowfall", "Leatherface", "Stonepile", "Stanch", "Galegut", "Gnawer", "Deadbough", "Barebones", "Wormwood the Wraithmaker", "Wormwood Acolyte", "Ashwin the Stormcrested", "Claymore XT-9", "AG5 Blitzbuster", "Nym Maiden of Mercy", "Asteria", "Acacia", "Atethys", "Mikolai the Malevolent", "The Shadow Queen", "XL-51 Goliath", "Queen Bizzelt", "Captain Fripeti", "Groundswell Guardsman", "RG3 Blitzbuster", "Brigadier Bellza", "Black Besieger", "Exterminator Cryvex", "Veshra the Eye of the Storm", "Slopper", "Gravek the Swale-Striker", "Veldrok the Vindicator", "Moreg the Mauler", "Zersa the Betrothed", "Kalifa", "Cromlech the Kilnborn", "Suul of the Silva", "Meldrid the Decrepit", "Blisterbane", "Squall", "Flamesurge", "Flamebinder Sorvel", "Rumble", "Doctor Rotthrall", "Kryne the Tidebreaker", "Quin Quickdraw", "Andara the Seer", "Crog the Smasher", "ER-7 Explorer", "AX-12 Defender", "Torgal the Devastator", "Scabclaw", "Gorax the Putrid", "Old Scrappy", "Dreadbone", "Guardian Xeltos", "Guardian Zelkix", "Augmented Ragemaster", "Flintrock", "Gorignak", "Granitefist", "Dreich", "Beelzebug", "Whitefang", "Detritus", "Lifegrazer", "The Pink Pumera", "The Queen", "Blinky", "Drifter", "The Lobotomizer", "Abyss", "Deadpaws", "Alpha Guard One", "Alpha Guard Two", "Strainblade", "Vorgrim", "The Vultch", "Deathgrazer", "Purple Peep Eater", "The Ravagist", "Amorphomorph", "King Grimrock", "Scrabbles", "Sgt. Garog", "Excargo", "Gorganoth Prime", "The Floater", "Weapon 24", "Ghostfin", "Torrent", "Whirlwind", "Dreadmorel", "Regulator 11", "Auxiliary Probe", "Sarod the Senseless", "Aeacus", "Silverhorn", "Voresk Venomgill", "The Terror of Bloodstone", "Zakan the Necroshaman", "Wrath of Niwha", "Felidax", "Terminus Rex", "Gavwyn the Verdant Defender", "Steel Jaw", "Arianna Wildgrass", "Arianna's Sentry", "Arianna's Assassin", "Subject: Rho", "The Endless Hunger", "Flamekin", "Nakaz the Deadlord", "Hotshot Braz", "Bloodtail", "Blightbeak", "Deathpaw", "Grudder", "Quiggles", "King Cruelclaw", "Queen Kizzek", "Grovekeeper Fellia", "Razorclaw", "Chief Blackheart", "Rondo", "Rondo's Squad", "XT-9 Alpha", "Crystalback", "Rashanna the Soul Drinker", "The Embermaster", "Rotfang", "Spellmaster Verwyn", "Subject V - Tempest", "Subject J - Fiend", "Subject K - Brute", "KE-27 Sentinel", "KE-28 Energizer", "Subject Tau", "Grinder", "Bugwit", "Icefang", "Frostbite", "Grellis the Blight Queen", "Torvex the Crystal Titan", "K9 Destroyer", "Stormshell", "FR2 Blitzer", "Permafrost", "Drud the Demented", "Frosty the Snowtail", "Skorga the Frigid", "Warlord Nagvox", "Shellshock", "AX-12 Defender", "Blubbergut", "Frozenclaw", "Stonegut", "Savageclaw", "Grug the Executioner", "Blightfang", "Basher Grogek", "Flame-Binder Trovin", "Queen Tizzet", "Dominator", "Infinimaw", "Bloodmane", "\"Hotshot\" Braz"}
     elseif strCancelLocale == "Annuler" then
-      o.defaultRareNames = {"Nomjin", "Éclat de givre", "Petit doigt", "Dompteur Xix", "Iiksy", "Ombrechute", "Tas de pierres", "Endigueur", "Souffletripe", "Rongeur", "Mortebranche", "Ossanu", "Verbois le Courrouceur", "Acolytes verbois", "Ashwin le Crêtetempête", "Claymore XT-9","AG5 Blitzbuster","Nym, vierge de la pitié","Asteria","Acacia","Atethys","Mikolai le malfaisant","La reine des ombres","Goliath XL-51","Reine Bizzbizze","Capitaine Fripeti","Garde du Tellurixe","Bombardeur RG3","Brigadier Bellza","Assiégeant noir","Exterminateur Cryvex","Veshra l'œil du cyclone","Renverseur","Gravek le Frappefosse","Veldrok le Vengeur","Moreg le Déchiqueteur","Zersa la Promise","Kalifa","Cromlech l'Enfourné","Meldrid la Décatie","Cloquepoil","Brise-bourrasque","Retour de flamme","Bave de Grondeur","Docteur Vilserf","Kryne le Brisemarée","Quin fine gâchette","Andara le Devin","Crog le Fracasseur","Explorateur ER-7","Défenseur AX-12","Torgal le Dévasteur","Corrugriffe","Gorax le Putride","Vieux tas de ferraille","Épouvantos","Gardien Xeltos","Gardien Zelkix","Silex","Gorignak","Poings de granit","Dreich","Bourdard","Croblanc","Détritus","Viverelle","L'Antre de la reine","Cligneur","Drifter","Le Lobotomiseur","Écran abyssal","Mortes-poignes","Garde Alpha 1","Garde Alpha 2","Souille-lame","Vorgrim","Le Vautour","Morterelle","Le Ravageur","Amorphomorphe","Roi Sinistroche","Scrabbles","Sergent Garog","Excargo","Primo Gorganoth","Le Flotteur","Arme 24","Spectraileron","Torrent - Reduced movement speed.","Tourbillon","Soucheflamme","Effroimorille","Régulateur11","Sonde auxiliaire","Sarod l'Insensé","Aeacus","Cornargent","Voresk Branchivenin","La Terreur de Rochesang","Zakan le Nécrochaman","Courroux du Niwha","Froc de Felidax","Terminus Rex","Gavwyn le Défenseur verdoyant","Mâchoire d'acier","Arianna Herbefolle","Sentinelle d'Arianna","Assassin d'Arianna","Sujets: Rho","La faim sans fin","Nakaz le Seigneur mort","Sanguifouet","Rouillebec","Donnemort","Grapace","Grouillis","Roi Lacérace","Reine Kizzek","Protectrice du bosquet Fellia","Acèregriffe","Chef de Noircœur","Rondo","Équipe de Rondo","Alpha XT-9","Crystalback Bull","Rashanna la Buveuse d'âmes","Le Maître des braises","Putrecroc","Maître des sorts Verwyn","SujetV: tempête","SujetJ: démon","SujetK: brute","SentinelleKE-27","Source d'énergieKE-28","Sujet: Tau","Monture Broyeur","Bugwit","Croc-de-glace","Morglace","Torvex le Titan de cristal","DestructeurK9","Coquetempête","Pilonneur FR2","Permafrost","Drud le Dément","Skorga le Glacé","Seigneur de guerre Nagvox","Griffegel","Commotionneur","Renverseur","Défenseur AX-12"}
+      o.defaultRareNames = {"Nomjin", "Éclat de givre", "Petit doigt", "Dompteur Xix", "Iiksy", "Ombrechute", "Tas de pierres", "Endigueur", "Souffletripe", "Rongeur", "Mortebranche", "Ossanu", "Verbois le Courrouceur", "Acolytes verbois", "Ashwin le Crêtetempête", "Claymore XT-9","AG5 Blitzbuster","Nym, vierge de la pitié","Asteria","Acacia","Atethys","Mikolai le malfaisant","La reine des ombres","Goliath XL-51","Reine Bizzbizze","Capitaine Fripeti","Garde du Tellurixe","Bombardeur RG3","Brigadier Bellza","Assiégeant noir","Exterminateur Cryvex","Veshra l'œil du cyclone","Renverseur","Gravek le Frappefosse","Veldrok le Vengeur","Moreg le Déchiqueteur","Zersa la Promise","Kalifa","Cromlech l'Enfourné","Meldrid la Décatie","Cloquepoil","Brise-bourrasque","Retour de flamme","Bave de Grondeur","Docteur Vilserf","Kryne le Brisemarée","Quin fine gâchette","Andara le Devin","Crog le Fracasseur","Explorateur ER-7","Défenseur AX-12","Torgal le Dévasteur","Corrugriffe","Gorax le Putride","Vieux tas de ferraille","Épouvantos","Gardien Xeltos","Gardien Zelkix","Silex","Gorignak","Poings de granit","Dreich","Bourdard","Croblanc","Détritus","Viverelle","L'Antre de la reine","Cligneur","Drifter","Le Lobotomiseur","Écran abyssal","Mortes-poignes","Garde Alpha 1","Garde Alpha 2","Souille-lame","Vorgrim","Le Vautour","Morterelle","Le Ravageur","Amorphomorphe","Roi Sinistroche","Scrabbles","Sergent Garog","Excargo","Primo Gorganoth","Le Flotteur","Arme 24","Spectraileron","Torrent - Reduced movement speed.","Tourbillon","Soucheflamme","Effroimorille","Régulateur11","Sonde auxiliaire","Sarod l'Insensé","Aeacus","Cornargent","Voresk Branchivenin","La Terreur de Rochesang","Zakan le Nécrochaman","Courroux du Niwha","Froc de Felidax","Terminus Rex","Gavwyn le Défenseur verdoyant","Mâchoire d'acier","Arianna Herbefolle","Sentinelle d'Arianna","Assassin d'Arianna","Sujets: Rho","La faim sans fin","Nakaz le Seigneur mort","Sanguifouet","Rouillebec","Donnemort","Grapace","Grouillis","Roi Lacérace","Reine Kizzek","Protectrice du bosquet Fellia","Acèregriffe","Chef de Noircœur","Rondo","Équipe de Rondo","Alpha XT-9","Crystalback Bull","Rashanna la Buveuse d'âmes","Le Maître des braises","Putrecroc","Maître des sorts Verwyn","SujetV: tempête","SujetJ: démon","SujetK: brute","SentinelleKE-27","Source d'énergieKE-28","Sujet: Tau","Monture Broyeur","Bugwit","Croc-de-glace","Morglace","Torvex le Titan de cristal","DestructeurK9","Coquetempête","Pilonneur FR2","Permafrost","Drud le Dément","Skorga le Glacé","Seigneur de guerre Nagvox","Griffegel","Commotionneur","Renverseur","Défenseur AX-12", "Dominateur"}
     elseif strCancelLocale == "Abbrechen" then
       o.defaultRareNames = {"Der Schrecken von Blutstein", "Zakan der Nekroschamane", "Zorn von Niwha", "Felidax", "Terminus Rex", "Gavwyn der Grüne Verteidiger", "Stahlkiefer", "Arianna Wildgras", "Ariannas Wachposten", "Ariannas Assassinin", "Subject: Rho", "Der unstillbare Hunger", "Nakaz der Totenherr", "Teufelskerl Braz", "Geistflosse", "Strömung", "Wirbelwind", "Flammensippe", "Furchtmorchel", "Regulator11", "Hilfssonde", "Sarod der Sinnlose", "Aeacus", "Silberhorn", "Vorsek Giftkiemen", "Blutschwanz", "Faulschnabel", "Todespfote", "Grudder", "Quiggles", "König Grausamklaue", "Königin Kizzek", "Hainbeschützerin", "Scharfkralle", "Häuptlich Schwarzherz", "Rondo", "Rondos Trupp", "XT-9 Alpha", "Kristallrücken", "Rashanna die Seelentrinkerin", "Der Glutmeister", "Faulzahn", "Spruchmeister Verwyn", "Kalifa", "Cromlech der Brennofengeborene", "Seele der Silva", "Meldrid die Altersschwache", "Blasenfluch", "Böe", "Flammenwoge", "Flammenbinder Sorvel", "Rumpeln", "Doktor Faulsklave", "Kryne der Wellenbrecher", "Quin Flinkhand", "Andara die Seherin", "Crog der Schmetterer", "ER-7 Kundschafter", "AX-12 Verteidiger", "Schorfklaue", "Gorax der Faulige", "Torgal der Verwüster", "Alte Rumpelkiste", "Schreckensknochen", "Wächter Xeltos", "Wächter Zelkix", "Augmentierter Zornmeister", "Steingedärm", "Wildklaue", "Grug der Scharfrichter", "Faulzahn", "Spalter Grogek", "Flammenbinder Trovin", "Königin Tizzet", "Feuerstein", "Grignak", "Granitfaust", "Dreich", "Summuel", "Weißzahn", "Geröll", "Lebensgraser", "Blutmähne", "Die Königin", "Blinzli", "Gammler", "Der Lobotomisierer", "Abgrund", "Totenpfoten", "Alphawache Eins", "Alphawache Zwei", "Transmutationsklinge", "Vorgrimm", "Der Vultch", "Todgraser", "Endlosschlund", "SubjektV-Sturm", "SubjektJ-Scheusal", "SubjektK-Widerling", "SubjektV - Sturm", "SubjektJ - Scheusal", "SubjektK - Widerling", "Subjekt V-Sturm", "Subjekt J-Scheusal", "Subjekt K-Widerling", "Subjekt V - Sturm", "Subjekt J - Scheusal", "Subjekt K - Widerling", "Schleifer", "Kleinsinn", "Wache KE-27", "Auflader KE-28", "Subjekt: Tau"}
     else
@@ -107,13 +111,15 @@ function RareTracker:OnDocLoaded()
 
     self.timer = ApolloTimer.Create(1/60, true, "OnTimer", self)
     self.rotationTimer = ApolloTimer.Create(1/5, true, "OnTimer", self)
+    self.autoCloseTimer = ApolloTimer.Create(5, false, "OnAutoCloseTimer", self)
+    self.autoCloseTimer:Stop()
 
     self:InitConfigOptions()
     self:InitTrackMaster()
 	end
 end
 
-function RareTracker:InitConfigOptions()
+function RareTracker:InitConfigOptions() 
   if self.minLevel == nil then
     self.minLevel = 1
   end
@@ -134,13 +140,39 @@ function RareTracker:InitConfigOptions()
     self.showIndicator = true
   end
 
+  if self.closeEmptyTracker == nil then
+    self.closeEmptyTracker = true
+  end
+
   if self.customNames == nil then
     self.customNames = {}
+  end
+
+  if (self.savedMajorVersion == nil or self.savedMinorVersion == nil or self.savedMajorVersion < self.majorVersion) and self.newRares and self.rareNames ~= nil then
+    self:ShowResetRareListPrompt()
+  elseif self.savedMinorVersion ~= nil and self.savedMinorVersion < self.minorVersion and self.newRares and self.rareNames ~= nil then
+    self:ShowResetRareListPrompt()
   end
 
   if self.rareNames == nil then
     self.rareNames = self.defaultRareNames
   end
+end
+
+function RareTracker:ShowResetRareListPrompt()
+  self.resetWindow = Apollo.LoadForm(self.xmlDoc, "ResetConfirmationForm", nil, self)
+end
+
+function RareTracker:OnResetRaresButton()
+  self.rareNames = table.shallow_copy(self.defaultRareNames)
+  if self.configWindow ~= nil then
+    self.configWindow:Close()
+  end
+  self.resetWindow:Close()
+end
+
+function RareTracker:OnResetWindowClose()
+  self.resetWindow:Close()
 end
 
 function RareTracker:InitTrackMaster()
@@ -196,10 +228,13 @@ function RareTracker:OnSave(saveLevel)
   savedData.broadcastToParty = self.broadcastToParty
   savedData.playSound = self.playSound
   savedData.showIndicator = self.showIndicator
+  savedData.closeEmptyTracker = self.closeEmptyTracker
   savedData.rareNames = self.rareNames
   savedData.customNames = self.customNames
   savedData.trackMasterLine = self.trackMasterLine
   savedData.trackMasterEnabled = self.trackMasterEnabled
+  savedData.savedMinorVersion = self.minorVersion
+  savedData.savedMajorVersion = self.majorVersion
 
   return savedData
 end
@@ -225,6 +260,10 @@ function RareTracker:OnRestore(saveLevel, savedData)
     self.broadcastToParty = savedData.broadcastToParty
   end
 
+  if (savedData.closeEmptyTracker ~= nil) then
+    self.closeEmptyTracker = savedData.closeEmptyTracker
+  end
+
   if (savedData.rareNames ~= nil) then
     self.rareNames = savedData.rareNames
   end  
@@ -239,7 +278,15 @@ function RareTracker:OnRestore(saveLevel, savedData)
 
   if (savedData.trackMasterEnabled ~= nil) then
     self.trackMasterEnabled = savedData.trackMasterEnabled
-  end  
+  end
+
+  if (savedData.savedMajorVersion ~= nil) then
+    self.savedMajorVersion = savedData.savedMajorVersion
+  end
+
+  if (savedData.savedMinorVersion ~= nil) then
+    self.savedMinorVersion = savedData.savedMinorVersion
+  end    
 end
 
 function RareTracker:OnWindowManagementReady()
@@ -283,28 +330,15 @@ function RareTracker:OnTimer()
   end
 end
 
+function RareTracker:OnAutoCloseTimer()
+  if #self.trackedRaresWindow:GetChildren() == 0 then
+    self.mainWindow:Close()
+  end
+end
+
 function RareTracker:OnUnitCreated(unit)
   local disposition = unit:GetDispositionTo(GameLib.GetPlayerUnit())
   local unitName = trim(unit:GetName())
-
-  -- Uncomment this to detect all elite mobs
-
-  -- if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and unit:GetLevel() ~= nil and
-  --    (disposition == Unit.CodeEnumDisposition.Hostile or disposition == Unit.CodeEnumDisposition.Neutral) and 
-  --    (unit:GetDifficulty() >= 3 or unit:GetRank() >= 5) then
-  --   local item = self.rareMobs[unit:GetName()]
-  --   if not item then
-  --     Event_FireGenericEvent("SendVarToRover", unit:GetName(), unit)
-  --     self:AddTrackedRare(unit)
-  --     self.mainWindow:Invoke()
-  --     Print("Mob Found: " .. unit:GetName())
-  --   elseif item.inactive == true then
-  --     -- The mob was destroyed but has been found again
-  --     self:ActivateUnit(item, unit)      
-  --   end
-  -- end
-
-  -- Comment this block to disable checking against the rare list
 
   if unit:IsValid() and not unit:IsDead() and not unit:IsACharacter() and 
      (unit:GetLevel() ~= nil and unit:GetLevel() >= self.minLevel) and
@@ -370,12 +404,17 @@ function RareTracker:RemoveTrackedRare(windowControl)
   end
 
   self.rareMobs[windowControl:GetData().name] = nil
+
   windowControl:Destroy()
 
   if self.trackMaster ~= nil then
     self.trackMaster:SetTarget(nil, -1, self.trackMasterLine)
   end
     
+  -- SendVarToRover("trackedrares", self.trackedRaresWindow)
+  if #self.trackedRaresWindow:GetChildren() == 0 then
+    self.autoCloseTimer:Start()
+  end
   self.trackedRaresWindow:ArrangeChildrenVert()
 end
 
@@ -490,6 +529,7 @@ function RareTracker:OnConfigure()
     self.configWindow:FindChild("BroadcastContainer:RadioButton"):SetCheck(self.broadcastToParty)
     self.configWindow:FindChild("PlaySoundContainer:RadioButton"):SetCheck(self.playSound)
     self.configWindow:FindChild("ShowHintArrowContainer:RadioButton"):SetCheck(self.showIndicator)
+    self.configWindow:FindChild("CloseEmptyTrackerContainer:RadioButton"):SetCheck(self.closeEmptyTracker)
     self.configWindow:FindChild("MinLevelContainer:DaysContainer:minLevelInput"):SetText(self.minLevel)
     self.configWindow:FindChild("MaxTrackingDistanceContainer:DistanceContainer:maxDistanceInput"):SetText(self.maxTrackingDistance)
   end
@@ -582,6 +622,14 @@ end
 
 function RareTracker:OnShowIndicatorUncheck(windowHandler, windowControl)
   self.showIndicator = false
+end
+
+function RareTracker:OnAutoCloseEmptyTrackerCheck(windowHandler, windowControl)
+  self.closeEmptyTracker = true
+end
+
+function RareTracker:OnAutoCloseEmptyTrackerUncheck(windowHandler, windowControl)
+  self.closeEmptyTracker = false
 end
 
 function RareTracker:OnMinLevelChange(windowHandler, windowControl, strText)
